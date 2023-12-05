@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Create a User{% endblock %}
+
+{% block content %}
+<h1>{{ self.title() }}</h1>
+<div class="col-4 m-2">
+    <form method="POST">
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" name="firstName" placeholder="Enter a first name" required>
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" name="lastName" placeholder="Enter a last name" required>
+        </div>
+        <div class="mb-3">
+            <label for="imageUrl" class="form-label">Image URL</label>
+            <input type="text" class="form-control" name="imageUrl" placeholder="Provide an image of this user">
+        </div>
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-success">Add</button>
+        </div>
+        
+  </form>
+</div>
+
+{% endblock %}
