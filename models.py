@@ -11,10 +11,6 @@ def connect_db(app):
 class User(db.Model):
     """User"""
 
-    def __repr__(self):
-        p = self
-        return f"<user id={p.id}, first_name={p.first_name}, last_name={p.last_name}, image_url={p.image_url}>"
-
     __tablename__ = "users"
 
     id = db.Column(db.Integer, 
@@ -30,7 +26,12 @@ class User(db.Model):
     image_url = db.Column(db.String(2000),
                           default='https://t3.ftcdn.net/jpg/03/46/83/96/240_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg')
 
-    def get_full_name(self):
+    def __repr__(self):
+        p = self
+        return f"<user id={p.id}, first_name={p.first_name}, last_name={p.last_name}, image_url={p.image_url}>"
+
+    @property
+    def full_name(self):
         """Get the full name of a user"""
           
         return f"{self.first_name} {self.last_name}"
