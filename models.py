@@ -30,8 +30,7 @@ class User(db.Model):
     image_url = db.Column(db.String(2000),
                           default='https://t3.ftcdn.net/jpg/03/46/83/96/240_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg')
 
-    @classmethod
-    def get_full_name(cls, user_id):
+    def get_full_name(self):
         """Get the full name of a user"""
-        user = cls.query.get(user_id)  
-        return f"{user.first_name} {user.last_name}"
+          
+        return f"{self.first_name} {self.last_name}"

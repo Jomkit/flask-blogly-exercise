@@ -30,9 +30,8 @@ def show_user(user_id):
     """Show user details: profile image, full name, and then
        edit and delete buttons"""
     user = User.query.get_or_404(user_id)
-    full_name = User.get_full_name(user_id)
 
-    return render_template('details.html', user=user, full_name=full_name)
+    return render_template('details.html', user=user)
 
 @app.route('/users/<int:user_id>/edit')
 def show_edit_form(user_id):
@@ -66,12 +65,12 @@ def delete_user(user_id):
     db.session.commit()
     return redirect('/users')
 
-@app.route('/new')
+@app.route('/users/new')
 def show_new_user_form():
 
     return render_template('new-user-form.html')
 
-@app.route('/new', methods=['POST'])
+@app.route('/users/new', methods=['POST'])
 def create_new_user_form():
     f_name = request.form['firstName']
     l_name = request.form['lastName']
