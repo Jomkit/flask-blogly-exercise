@@ -27,9 +27,12 @@ def show_users():
 
 @app.route('/users/<int:user_id>')
 def show_user(user_id):
+    """Show user details: profile image, full name, and then
+       edit and delete buttons"""
     user = User.query.get_or_404(user_id)
+    full_name = User.get_full_name(user_id)
 
-    return render_template('details.html', user=user)
+    return render_template('details.html', user=user, full_name=full_name)
 
 @app.route('/users/<int:user_id>/edit')
 def show_edit_form(user_id):
@@ -50,7 +53,7 @@ def edit_user(user_id):
     user.first_name = f_name
     user.last_name = l_name
     user.image_url = image_url
-    
+
     db.session.add(user)
     db.session.commit()
 
