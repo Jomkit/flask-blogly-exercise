@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -35,3 +36,26 @@ class User(db.Model):
         """Get the full name of a user"""
           
         return f"{self.first_name} {self.last_name}"
+    
+class Post(db.Model):
+    """Post"""
+    __tablename__="posts"
+
+    id = db.Column(db.Integer,
+                   primary_key=True,
+                   autoincrement=True)
+
+    title = db.Column(db.String(30),
+                      nullable=False)
+    
+    content = db.Column(db.String(350),
+                        nullable=False)
+
+    created_at = db.Column(db.DateTime,
+                           nullable=False, 
+                           unique=True,
+                           default=datetime.now())
+    
+    def __repr__(self):
+        p = self
+        return f"<post id={p.id}, title={p.title}, created_at={p.created_at}>"
