@@ -85,3 +85,10 @@ def create_new_user_form():
 
     return redirect('/users')
 
+
+@app.route('/users/<int:user_id>/posts/new')
+def show_new_post_form(user_id):
+    """Show post with title, content, and author. Include cancel, edit, and delete"""
+    user = User.query.get_or_404(user_id)
+
+    return render_template('new-post-form.html', user=user)
