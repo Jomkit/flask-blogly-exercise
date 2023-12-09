@@ -52,9 +52,12 @@ class Post(db.Model):
                         nullable=False)
 
     created_at = db.Column(db.DateTime,
-                           nullable=False, 
-                           unique=True,
+                           nullable=False,
                            default=datetime.now())
+    
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    
+    users = db.relationship('User', backref='posts')
     
     def __repr__(self):
         p = self

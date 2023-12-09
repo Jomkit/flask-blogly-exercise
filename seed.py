@@ -22,14 +22,26 @@ kerry = User(first_name='Kerry',
              image_url='https://images.pexels.com/photos/3408354/pexels-photo-3408354.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')
 
 # add posts
-
+p1 = Post(title="I'm Roger", content="Hi, it's me Roger", user_id=1)
+p2 = Post(title="Not Roger", content="Hey I'm Mary", user_id=2)
+p3 = Post(title="Love Dogs", content="I'm Kerry, and I love dogs", user_id=3)
+p4 = Post(title="I'm Roger's Mom", content="This is Roger's mom, can someone tell him it's dinner time?", user_id=1)
+p5 = Post(title="Account Security", content="Make sure to log out securely every time you're done posting. -Mary", user_id=2)
+p6 = Post(title="Ooops", content="That was an accident haha", user_id=1)
 
 # Add new objets to session, so they'll persist
 db.session.add(roger)
 db.session.add(mary)
 db.session.add(kerry)
 
-# Commit
 db.session.commit()
 
+db.session.add(p1)
+db.session.add(p2)
+db.session.add(p3)
+db.session.add(p4)
+db.session.add(p5)
+db.session.add(p6)
+
+db.session.commit()
 
