@@ -57,7 +57,7 @@ class Post(db.Model):
     
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     
-    users = db.relationship('User', backref='posts')
+    user = db.relationship('User', backref='posts')
     
     def __repr__(self):
         p = self

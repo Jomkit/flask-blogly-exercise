@@ -15,7 +15,7 @@
             <h1>Posts</h1>
             <ul>
                 {% for p in user.posts %}
-                <li><a href="#" style="text-decoration: none;">{{p.title}}</a></li>
+                <li><a href="/posts/{{ p.id }}" style="text-decoration: none;">{{p.title}}</a></li>
                 {% endfor %}
             </ul>
             <a href="/users/{{user.id}}/posts/new" class="btn btn-primary">Add Post</a>
