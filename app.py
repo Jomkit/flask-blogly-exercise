@@ -18,8 +18,10 @@ connect_db(app)
 
 @app.route('/')
 def homepage():
-    return redirect('/users')
+    posts = Post.query.order_by(Post.created_at.desc()).limit(5).all()
+    return render_template('home.html', posts=posts)
 
+########### USER ROUTES ############
 @app.route('/users')
 def show_users():
     users = User.query.order_by(User.last_name, User.first_name).all()
@@ -58,7 +60,7 @@ def edit_user(user_id):
 
     return redirect('/users')
 
-@app.route('/users/<int:user_id>/delete', methods=['POST'])
+@app.route('/users/<int:user_id>/delete')
 def delete_user(user_id):
     
     User.query.filter_by(id=user_id).delete()
@@ -135,3 +137,10 @@ def edit_post(post_id):
     db.session.commit()
 
     return redirect(f'/posts/{post_id}')
+
+@app.route('/posts/<int:post_id>/delete')
+def delete_post(post_id):
+    
+    post = Post.query.filter_by(id=post_id).delete()
+    db.session.commit()
+    return redirect(f'/users')
