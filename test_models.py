@@ -26,4 +26,4 @@ class UserModelTestCase(TestCase):
         db.session.add(user)
         db.session.commit()
 
-        self.assertEquals(user.get_full_name(), "Test Guy")
+        self.assertEqual(user.full_name, "Test Guy")

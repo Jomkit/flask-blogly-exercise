@@ -1,6 +1,6 @@
 """Blogly application."""
 
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Post
 
@@ -20,6 +20,10 @@ connect_db(app)
 def homepage():
     posts = Post.query.order_by(Post.created_at.desc()).limit(5).all()
     return render_template('home.html', posts=posts)
+
+@app.errorhandler(404)
+def not_found(e):
+    return render_template('not-found.html'), 404
 
 ########### USER ROUTES ############
 @app.route('/users')
@@ -58,13 +62,18 @@ def edit_user(user_id):
     db.session.add(user)
     db.session.commit()
 
+    flash('User updated!', 'success')
+
     return redirect('/users')
 
 @app.route('/users/<int:user_id>/delete')
 def delete_user(user_id):
-    
+    User.query.get_or_404(user_id)
     User.query.filter_by(id=user_id).delete()
     db.session.commit()
+
+    flash('User Deleted!','danger')
+    
     return redirect('/users')
 
 @app.route('/users/new')
@@ -85,6 +94,8 @@ def create_new_user_form():
     db.session.add(new_user)
     db.session.commit()
 
+    flash('New user created!', 'success')
+
     return redirect('/users')
 
 ############### POSTS ##################
@@ -98,7 +109,8 @@ def show_new_post_form(user_id):
 
 @app.route('/users/<int:user_id>/posts/new', methods=['POST'])
 def create_new_post_form(user_id):
-    """Create new post associated with user"""
+    """Create new post associated with user, redirect to 
+       associated user's page"""
     title = request.form['title']
     content = request.form['content']
 
@@ -108,10 +120,13 @@ def create_new_post_form(user_id):
     db.session.add(new_post)
     db.session.commit()
 
+    flash('Posted!','success')
+    
     return redirect(f'/users/{user_id}')
 
 @app.route('/posts/<post_id>')
 def show_post(post_id):
+    """Shows details of one post"""
     post = Post.query.get_or_404(post_id)
 
     return render_template('post-details.html', post=post)
@@ -136,6 +151,8 @@ def edit_post(post_id):
     db.session.add(post)
     db.session.commit()
 
+    flash('Post updated!','success')
+    
     return redirect(f'/posts/{post_id}')
 
 @app.route('/posts/<int:post_id>/delete')
@@ -143,4 +160,7 @@ def delete_post(post_id):
     
     post = Post.query.filter_by(id=post_id).delete()
     db.session.commit()
+
+    flash('Post deleted!', 'danger')
+    
     return redirect(f'/users')
