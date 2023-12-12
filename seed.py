@@ -2,7 +2,7 @@ from models import User, Post, db
 from app import app
 from datetime import datetime
 
-# cr 12, 11, 13, 12, 44eate all tables fresh
+# create all tables fresh
 db.drop_all()
 db.create_all()
 

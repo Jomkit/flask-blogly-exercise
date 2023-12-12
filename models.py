@@ -64,3 +64,19 @@ class Post(db.Model):
     def __repr__(self):
         p = self
         return f"<post id={p.id}, title={p.title}, created_at={p.created_at}>"
+    
+class Tag(db.Model):
+    """Tag"""
+    __tablename__="tags"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+
+    name = db.Column(db.Text, nullable=False, unique=True)
+
+class PostTag(db.Model):
+    """Join Relationship between Post and Tag"""
+    __tablename__ = "posts_tags"
+
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), primary_key=True)
+
+    tag_id = db.Column(db.Integer, db.ForeignKey("tags.id"), primary_key=True)
