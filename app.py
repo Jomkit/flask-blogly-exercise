@@ -164,3 +164,16 @@ def delete_post(post_id):
     flash('Post deleted!', 'danger')
     
     return redirect(f'/users')
+
+############### tag routes ###############
+@app.route('/tags')
+def all_tags():
+    tags = Tag.query.all()
+    
+    return render_template('tags.html',tags=tags)
+
+@app.route('/tags/<tag_id>')
+def tag_details(tag_id):
+    tag = Tag.query.get_or_404(tag_id)
+
+    return render_template('tag-details.html', tag=tag)

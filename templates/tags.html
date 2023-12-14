@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Tags{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1>{{ self.title() }}</h1>
+    <ul>
+        {% for tag in tags %}
+        <li><a href="/tags/{{tag.id}}" style="text-decoration: none;">{{tag.name}}</a></li>
+        {% endfor %}
+    </ul>
+    <a href="#" class="btn btn-primary">Add Tag</a>
+</div>
+
+
+{% endblock %}
