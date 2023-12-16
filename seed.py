@@ -32,6 +32,7 @@ p3 = Post(title="Love Dogs", content="I'm Kerry, and I love dogs", user_id=3)
 p4 = Post(title="I'm Roger's Mom", content="This is Roger's mom, can someone tell him it's dinner time?", user_id=1, created_at=datetime(2023, 12, 11, 9, 12, 44))
 p5 = Post(title="Account Security", content="Make sure to log out securely every time you're done posting. -Mary", user_id=2)
 p6 = Post(title="Ooops", content="That was an accident haha", user_id=1)
+p7 = Post(title="Peace", content="Peace, love, and unlimited dogs for all my friends and family out there", user_id=3)
 
 # Add new objects to session, so they'll persist
 
@@ -56,6 +57,7 @@ db.session.commit()
 p1.tags.append(intro)
 p3.tags.extend([intro, pets])
 p4.tags.extend([food, family])
+p7.tags.extend([love, happy, pets, family])
 
-db.session.add_all([p1,p3,p4])
+db.session.add_all([p1,p3,p4,p7])
 db.session.commit()

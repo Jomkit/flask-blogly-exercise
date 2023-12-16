@@ -9,6 +9,10 @@
             <label for="name" class="form-label">Title</label>
             <input type="text" class="form-control" name="name" value="{{ tag.name }}" required>
         </div>
+
+        {% for post in all_posts %}
+        {% include 'post-options.html' %}
+        {% endfor %}
         
         <div class="d-flex justify-content-end">
             <a class="btn btn-outline-primary mx-1" href="/tags/{{ tag.id }}">Cancel</a>

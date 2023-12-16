@@ -11,6 +11,9 @@
             <input type="text" class="form-control" name="name" placeholder="Enter a name for the tag" required>
         </div>
 
+        {% for post in all_posts %}
+        {% include 'post-options.html' %}
+        {% endfor %}
         <div class="d-flex justify-content-end">
             <a class="btn btn-outline-primary mx-1" href="/tags">Cancel</a>
             <button type="submit" class="btn btn-success">Add</button>

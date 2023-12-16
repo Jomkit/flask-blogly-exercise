@@ -13,9 +13,11 @@
             <label for="content" class="form-label">Content</label>
             <textarea class="form-control" id="content" name="content" rows="3"></textarea>
         </div>
+        
         {% for tag in tags %}
         {% include 'tag-options.html' %}
         {% endfor %}
+
         <div class="d-flex justify-content-end">
             <a class="btn btn-info text-white mx-1" href="/users">Cancel</a>
             <button type="submit" class="btn btn-success">Add</button>

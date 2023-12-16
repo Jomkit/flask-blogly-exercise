@@ -153,7 +153,8 @@ def edit_post(post_id):
     content = request.form['content']
 
     tag_ids = request.form.getlist('tag')
-    tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
+    # Get current list of tags by tag_ids from the edit form
+    tags = Tag.query.filter(Tag.id.in_(tag_ids)).all() 
     
     post.title = title
     post.content = content
@@ -192,7 +193,8 @@ def tag_details(tag_id):
 @app.route('/tags/new')
 def new_tag_form():
     """Show form for making new tag"""
-    return render_template('new-tag-form.html')
+    all_posts = Post.query.all()
+    return render_template('new-tag-form.html', all_posts=all_posts)
 
 @app.route('/tags/new', methods=['POST'])
 def create_new_tag():
@@ -206,7 +208,10 @@ def create_new_tag():
         flash('Tag already exists!', 'warning')
         return redirect('/tags')
     
-    new_tag = Tag(name=check_name)
+    post_ids = request.form.getlist('post')
+    posts = Post.query.filter(Post.id.in_(post_ids)).all()
+    new_tag = Tag(name=check_name,
+                  posts=posts)
 
     db.session.add(new_tag)
     db.session.commit()
@@ -219,14 +224,17 @@ def create_new_tag():
 def tag_edit_form(tag_id):
 
     tag = Tag.query.get_or_404(tag_id)
+    all_posts = Post.query.all()
     
-    return render_template('edit-tag.html', tag=tag)
+    return render_template('edit-tag.html', tag=tag, all_posts=all_posts)
 
 @app.route('/tags/<int:tag_id>/edit', methods=['POST'])
 def edit_tag(tag_id):
     
     tag = Tag.query.get_or_404(tag_id)
     name = request.form['name']
+    post_ids = request.form.getlist('post')
+    tag.posts = Post.query.filter(Post.id.in_(post_ids)).all()
     
     tag.name = name
 
