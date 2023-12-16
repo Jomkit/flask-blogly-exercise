@@ -146,6 +146,7 @@ def show_post_edit_form(post_id):
 
 @app.route('/posts/<int:post_id>/edit', methods=['POST'])
 def edit_post(post_id):
+    """Need to fix post edit to remove tags when they are unchecked"""
     
     post = Post.query.get_or_404(post_id)
     title = request.form['title']
@@ -156,7 +157,7 @@ def edit_post(post_id):
     
     post.title = title
     post.content = content
-    post.tags.extend(tags)
+    post.tags = tags
 
     db.session.add(post)
     db.session.commit()
@@ -197,11 +198,15 @@ def new_tag_form():
 def create_new_tag():
     """
     Create new tag, redirect to all tags
-    12/16/23 - Need to handle errors for repeat tags
+    Trying to enter a new tag results in duplicate tag flash msg
     """
-    name = request.form['name']
+    check_name = request.form['name']
 
-    new_tag = Tag(name=name)
+    if not Tag.query.filter_by(name=check_name).all() == []:
+        flash('Tag already exists!', 'warning')
+        return redirect('/tags')
+    
+    new_tag = Tag(name=check_name)
 
     db.session.add(new_tag)
     db.session.commit()
