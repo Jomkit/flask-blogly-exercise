@@ -81,9 +81,9 @@ class PostTag(db.Model):
     """Join Relationship between Post and Tag"""
     __tablename__ = "posts_tags"
 
-    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id", ondelete="CASCADE"), primary_key=True)
 
-    tag_id = db.Column(db.Integer, db.ForeignKey("tags.id"), primary_key=True)
+    tag_id = db.Column(db.Integer, db.ForeignKey("tags.id", ondelete="CASCADE"), primary_key=True)
 
     def __repr__(self):
         return f"<tag id={self.id}, name={self.name}>"
