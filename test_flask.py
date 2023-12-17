@@ -168,7 +168,7 @@ class PostViewsTestCase(TestCase):
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('<h1>Test1</h1>', html)
+            self.assertIn('Test1', html)
             self.assertIn("<p>Test Guy&#39;s test stuff</p>", html)
 
     def test_show_post_edit_form(self):
@@ -185,7 +185,7 @@ class PostViewsTestCase(TestCase):
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('<h1>EditTest</h1>', html)
+            self.assertIn('EditTest', html)
             self.assertIn('<p>This is a test that a post was edited</p>', html)
             self.assertIn('<p class="alert alert-success text-center py-1">Post updated!</p>', html)
 

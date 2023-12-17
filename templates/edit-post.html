@@ -13,6 +13,11 @@
             <label for="content" class="form-label">Post Content</label>
             <input type="text" class="form-control" name="content" value="{{ post.content }}" required>
         </div>
+
+        {% for tag in tags %}
+        {% include 'tag-options.html' %}
+        {% endfor %}
+        
         <div class="d-flex justify-content-end">
             <a class="btn btn-outline-primary mx-1" href="/posts/{{ post.user.id }}">Cancel</a>
             <button type="submit" class="btn btn-success">Save</button>

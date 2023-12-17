@@ -7,9 +7,7 @@
 
 {% for post in posts %}
 <div class="container-fluid">
-    <h2>{{post.title}}</h2>
-    <p class="mt-1 fs-5">{{post.content}}</p>
-    <p>By {{post.user.full_name}} on {{post.created_at.strftime("%a %b %d %Y, %-I:%M %p")}}</p>
+    {% include "posts_and_tags.html" %}
 </div>
 
 {% endfor %}

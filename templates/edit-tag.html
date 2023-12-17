@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Edit a tag{% endblock %}
+
+{% block content %}
+<h1>{{ self.title() }}</h1>
+<div class="col-4 m-2">
+    <form method="POST">
+        <div class="mb-3">
+            <label for="name" class="form-label">Title</label>
+            <input type="text" class="form-control" name="name" value="{{ tag.name }}" required>
+        </div>
+
+        {% for post in all_posts %}
+        {% include 'post-options.html' %}
+        {% endfor %}
+        
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-outline-primary mx-1" href="/tags/{{ tag.id }}">Cancel</a>
+            <button type="submit" class="btn btn-success">Save</button>
+        </div>
+        
+  </form>
+</div>
+
+{% endblock %}
